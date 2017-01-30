@@ -131,6 +131,8 @@ class Post(db.Model):
     content = db.TextProperty(required = True)
     created = db.DateTimeProperty(auto_now_add = True)
     last_modified = db.DateTimeProperty(auto_now = True)
+    comments = db.StringProperty()
+    likes = db.StrongProperty()
 
     def render(self):
         self._render_text = self.content.replace('\n', '<br>')
@@ -139,7 +141,7 @@ class Post(db.Model):
 class BlogFront(BlogHandler):
     def get(self):
         posts = greetings = Post.all().order('-created')
-        self.render('front.html', posts = posts)
+        self.render('front.html', posts = posts, comments = comments, username = self.user.name)
 
 class PostPage(BlogHandler):
     def get(self, post_id):
@@ -252,7 +254,7 @@ class Login(BlogHandler):
         u = User.login(username, password)
         if u:
             self.login(u)
-            self.redirect('/blog')
+            self.redirect('/unit3/welcome')
         else:
             msg = 'Invalid login'
             self.render('login-form.html', error = msg)
