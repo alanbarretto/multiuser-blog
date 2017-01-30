@@ -141,7 +141,7 @@ class Post(db.Model):
 class BlogFront(BlogHandler):
     def get(self):
         posts = greetings = Post.all().order('-created')
-        self.render('front.html', posts = posts, comments = comments, username = self.user.name)
+        self.render('front.html', posts = posts, comments = comments)
 
 class PostPage(BlogHandler):
     def get(self, post_id):
@@ -152,7 +152,7 @@ class PostPage(BlogHandler):
             self.error(404)
             return
 
-        self.render("permalink.html", post = post)
+        self.render("post.html", p = post)
 
 class NewPost(BlogHandler):
     def get(self):
@@ -163,7 +163,7 @@ class NewPost(BlogHandler):
 
     def post(self):
         if not self.user:
-            self.redirect('/blog')
+            self.redirect('/login')
 
         subject = self.request.get('subject')
         content = self.request.get('content')
@@ -254,7 +254,7 @@ class Login(BlogHandler):
         u = User.login(username, password)
         if u:
             self.login(u)
-            self.redirect('/unit3/welcome')
+            self.redirect('/welcome')
         else:
             msg = 'Invalid login'
             self.render('login-form.html', error = msg)
@@ -264,30 +264,29 @@ class Logout(BlogHandler):
         self.logout()
         self.redirect('/blog')
 
-class Unit3Welcome(BlogHandler):
+class Welcome(BlogHandler):
     def get(self):
         if self.user:
             self.render('welcome.html', username = self.user.name)
         else:
             self.redirect('/signup')
 
-class Welcome(BlogHandler):
-    def get(self):
-        username = self.request.get('username')
-        if valid_username(username):
-            self.render('welcome.html', username = username)
-        else:
-            self.redirect('/unit2/signup')
+#class Welcome(BlogHandler):
+    #def get(self):
+        #username = self.request.get('username')
+        #if valid_username(username):
+            #self.render('welcome.html', username = username)
+        #else:
+            #self.redirect('/unit2/signup')
 
 app = webapp2.WSGIApplication([('/', Login),
                                ('/unit2/rot13', Rot13),
                                ('/unit2/signup', Unit2Signup),
-                               ('/unit2/welcome', Welcome),
                                ('/blog/?', BlogFront),
                                ('/blog/([0-9]+)', PostPage),
                                ('/blog/newpost', NewPost),
                                ('/signup', Register),
                                ('/logout', Logout),
-                               ('/unit3/welcome', Unit3Welcome),
+                               ('/welcome', Welcome),
                                ],
                               debug=True)
