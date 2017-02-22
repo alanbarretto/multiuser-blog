@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Compose your Comment Here</h2>
+
+    <form method="post">
+
+      <label>
+        <textarea name="content">{{content}}</textarea>
+      </label>
+
+      <div class="error">{{error}}</div>
+
+      <input type="submit">
+      <a href="/blog">Cancel</a>
+       
+    </form>
+{% endblock %}
+

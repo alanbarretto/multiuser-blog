@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div> 
+    <div>
+        <h3 class="error">{{error}}</h3>
+    </div>
+</div>
+<div>
+
+  {% for p in posts %}
+    {{ p.render() | safe }}
+    -----------
+     {% for c in comments %}
+     {% if c.post_reference == p.subject %}
+            <div class="commentBox">{{c.render() | safe }}</div>
+      {% endif %}
+     {% endfor %}
+  
+   {% endfor %}
+</div>
+{% endblock %}
