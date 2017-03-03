@@ -1,3 +1,6 @@
+from blog import BlogHandler
+from models import User, Post, Comment
+
 class EditComments(BlogHandler):
     def get(self, post_id):
         ck = db.Key.from_path('Comment', int(post_id), parent=blog_key())

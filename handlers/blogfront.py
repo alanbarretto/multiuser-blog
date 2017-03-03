@@ -1,3 +1,6 @@
+from handler import bloghandler
+from models import User, Post, Comment
+
 class BlogFront(BlogHandler):
     def get(self):
         posts = greetings = Post.all().order('-created')

@@ -1,3 +1,6 @@
+import BlogHandler
+from models import User, Post, Comment
+
 class DeleteComments(BlogHandler):
 
     def get(self, post_id):

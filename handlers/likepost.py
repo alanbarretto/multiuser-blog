@@ -1,3 +1,5 @@
+import BlogHandler
+
 class LikePost(BlogHandler):
     def get(self, post_id):
         

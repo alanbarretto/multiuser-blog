@@ -1,3 +1,6 @@
+from signup import Signup
+from models import User
+
 class Register(Signup):
     def done(self):
         #make sure the user doesn't already exist

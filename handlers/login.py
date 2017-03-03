@@ -1,3 +1,6 @@
+import BlogHandler
+from models import User
+
 class Login(BlogHandler):
     def get(self):
         self.render('login-form.html')

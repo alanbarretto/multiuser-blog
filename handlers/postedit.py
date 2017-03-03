@@ -1,3 +1,6 @@
+import BlogHandler
+from models import Comment, Post
+
 class PostEdit(BlogHandler):
 
     def get(self, post_id):

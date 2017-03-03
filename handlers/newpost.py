@@ -1,3 +1,6 @@
+import BlogHandler
+from models import User, Post
+
 class NewPost(BlogHandler):
     def get(self):
         if self.user:

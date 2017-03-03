@@ -1,3 +1,6 @@
+import BlogHandler
+from models import Comment
+
 class PostPage(BlogHandler):
     def get(self, post_id):
         k = db.Key.from_path('Post', int(post_id), parent=blog_key())
