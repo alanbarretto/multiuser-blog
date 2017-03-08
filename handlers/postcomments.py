@@ -1,12 +1,13 @@
-import BlogHandler
-from models import Comment
+import bloghandler
+import models
+import support
 
-class PostComments(BlogHandler):
+class PostComments(bloghandler.BlogHandler):
     def get(self, post_id):
         if not self.user:
             self.redirect('/blog')
-        k = db.Key.from_path('Post', int(post_id), parent=blog_key())
-        p = db.get(k)
+        k = support.db.Key.from_path('Post', int(post_id), parent=support.blog_key())
+        p = support.db.get(k)
 
         if self.user:
             self.render("usercomment.html")
@@ -17,13 +18,13 @@ class PostComments(BlogHandler):
         if not self.user:
             self.redirect('/login')
 
-        k = db.Key.from_path('Post', int(post_id), parent=blog_key())
-        p = db.get(k)
+        k = support.db.Key.from_path('Post', int(post_id), parent=support.blog_key())
+        p = support.db.get(k)
         content = self.request.get('content')
         user = self.user.name
 
         if content:
-            c = Comment(parent=blog_key(), post_reference=p.subject, content=content, creator=user)
+            c = models.Comment(parent=support.blog_key(), post_reference=p.subject, content=content, creator=user)
             c.put()
             self.render("successfulcomment.html")
         else:

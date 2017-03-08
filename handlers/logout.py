@@ -1,6 +1,6 @@
-import BlogHandler
+import bloghandler
 
-class Logout(BlogHandler):
+class Logout(bloghandler.BlogHandler):
     def get(self):
         self.logout()
         self.redirect('/')

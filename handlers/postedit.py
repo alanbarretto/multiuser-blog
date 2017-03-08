@@ -1,12 +1,13 @@
-import BlogHandler
-from models import Comment, Post
+import bloghandler
+import models
+import support
 
-class PostEdit(BlogHandler):
+class PostEdit(bloghandler.BlogHandler):
 
     def get(self, post_id):
 
-        k = db.Key.from_path("Post", int(post_id), parent=blog_key())
-        p = db.get(k)
+        k = support.db.Key.from_path("Post", int(post_id), parent=support.blog_key())
+        p = support.db.get(k)
 
         if not p:
             self.redirect('/')
@@ -17,8 +18,8 @@ class PostEdit(BlogHandler):
         elif not self.user:
             self.redirect('/')
         else:
-            posts = greetings = Post.all().order('-created')
-            comments = Comment.all().order('-created')
+            posts = greetings = models.Post.all().order('-created')
+            comments = models.Comment.all().order('-created')
             error = "You can only edit posts you created."
             self.render('front.html', posts=posts,
                         comments=comments, error=error)
@@ -27,8 +28,8 @@ class PostEdit(BlogHandler):
         if not self.user:
             self.redirect('/')
 
-        k = db.Key.from_path("Post", int(post_id), parent=blog_key())
-        p = db.get(k)
+        k = support.db.Key.from_path("Post", int(post_id), parent=support.blog_key())
+        p = support.db.get(k)
 
         subject = self.request.get('subject')
         content = self.request.get('content')

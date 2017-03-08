@@ -1,6 +1,6 @@
-import BlogHandler
+import bloghandler
 
-class FrontPage(BlogHandler):
+class FrontPage(bloghandler.BlogHandler):
     def get(self):
         if not self.user:
             self.render('frontpage.html')

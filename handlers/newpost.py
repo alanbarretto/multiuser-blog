@@ -1,7 +1,7 @@
-import BlogHandler
-from models import User, Post
+import bloghandler
+import models
 
-class NewPost(BlogHandler):
+class NewPost(bloghandler.BlogHandler):
     def get(self):
         if self.user:
             self.render("newpost.html")
@@ -16,10 +16,10 @@ class NewPost(BlogHandler):
 
         subject = self.request.get('subject')
         content = self.request.get('content')
-        user = User.name
+        user = models.User.name
 
         if subject and content:
-            p = Post(user=user, subject = subject, content = content)
+            p = models.Post(user=user, subject = subject, content = content)
             p.put()
             self.redirect('/blog/%s' % str(p.key().id()))
         else:

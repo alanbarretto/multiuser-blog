@@ -1,13 +1,14 @@
-import BlogHandler
-from models import Comment
+import bloghandler
+import models
+import support
 
-class PostPage(BlogHandler):
+class PostPage(bloghandler.BlogHandler):
     def get(self, post_id):
-        k = db.Key.from_path('Post', int(post_id), parent=blog_key())
-        p = db.get(k)
+        k = support.db.Key.from_path('Post', int(post_id), parent=support.blog_key())
+        p = support.db.get(k)
         
         subject = p.subject
-        comments = Comment.all().order('-post_reference')
+        comments = models.Comment.all().order('-post_reference')
         
         if not p:
             self.error(404)

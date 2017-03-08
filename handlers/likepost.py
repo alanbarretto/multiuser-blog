@@ -1,10 +1,11 @@
-import BlogHandler
+import bloghandler
+import support
 
-class LikePost(BlogHandler):
+class LikePost(bloghandler.BlogHandler):
     def get(self, post_id):
         
-        k = db.Key.from_path('Post', int(post_id), parent=blog_key())
-        p = db.get(k)
+        k = support.db.Key.from_path('Post', int(post_id), parent=support.blog_key())
+        p = support.db.get(k)
 
         if  self.user and (self.user.name != p.creator):
             if not self.user.key() in p.likes_list:
@@ -16,8 +17,8 @@ class LikePost(BlogHandler):
             
         elif self.user and (self.user.name == p.creator):
             error = "You can't Like your own Posts!"
-            posts = db.GqlQuery("select * from Post order by created desc limit 10")
-            comments = db.GqlQuery("select * from Comment order by created desc")
+            posts = support.db.GqlQuery("select * from Post order by created desc limit 10")
+            comments = support.db.GqlQuery("select * from Comment order by created desc")
             self.render("front.html", posts=posts, comments=comments, error=error)
         else:
             self.redirect('/login')
