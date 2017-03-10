@@ -1,7 +1,7 @@
-import bloghandler
-import models
+from bloghandler import BlogHandler
+from models import User
 
-class Login(bloghandler.BlogHandler):
+class Login(BlogHandler):
     def get(self):
         self.render('login-form.html')
 
@@ -9,7 +9,8 @@ class Login(bloghandler.BlogHandler):
         username = self.request.get('username')
         password = self.request.get('password')
 
-        u = models.User.login(username, password)
+        u = User.login(username, password)
+        
         if u:
             self.login(u)
             self.redirect('/welcome')

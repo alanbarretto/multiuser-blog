@@ -1,10 +1,12 @@
-import bloghandler
-import models
+from bloghandler import BlogHandler
+from models import Post, Comment
 
-class BlogFront(bloghandler.BlogHandler):
+#from file_name import ClassName
+
+class BlogFront(BlogHandler):
     def get(self):
-        posts = greetings = models.Post.all().order('-created')
-        comments = models.Comment.all().order('-created')
+        posts = greetings = Post.all().order('-created')
+        comments = Comment.all().order('-created')
         
         self.render("front.html", posts = posts, comments=comments)
         

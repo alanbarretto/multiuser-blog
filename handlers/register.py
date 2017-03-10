@@ -1,15 +1,15 @@
-import signup
-import models
+from signup import Signup
+from models import User
 
-class Register(signup.Signup):
+class Register(Signup):
     def done(self):
         #make sure the user doesn't already exist
-        u = models.User.by_name(self.username)
+        u = User.by_name(self.username)
         if u:
             msg = 'That user already exists.'
             self.render('signup-form.html', error_username = msg)
         else:
-            u = models.User.register(self.username, self.password, self.email)
+            u = User.register(self.username, self.password, self.email)
             u.put()
             #login fxn sets the cookie
             self.login(u)

@@ -1,17 +1,23 @@
-import bloghandler
-import models
-import support
+from bloghandler import BlogHandler
+from models import Post, Comment
+from support import Support
+#blog_key
+from google.appengine.ext import db
 
-class PostPage(bloghandler.BlogHandler):
+class PostPage(BlogHandler):
     def get(self, post_id):
-        k = support.db.Key.from_path('Post', int(post_id), parent=support.blog_key())
-        p = support.db.get(k)
+    	#print "post_id: {0}".format(post_id)
+        k = db.Key.from_path('Post', int(post_id), parent=blog_key())
+        p = db.get(k)
         
-        subject = p.subject
-        comments = models.Comment.all().order('-post_reference')
-        
+
+        #p = Post.get_by_id(int(post_id))
+
         if not p:
             self.error(404)
             return
+
+        comments = Comment.all().order('-post_reference')
+        
 
         self.render("permalink.html", post = p, comments=comments)

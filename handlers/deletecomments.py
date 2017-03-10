@@ -1,13 +1,15 @@
-import bloghandler
-import models
-import support
+from bloghandler import BlogHandler
+from models import Post, Comment
+from support import Support
+#blog_key
+from google.appengine.ext import db
 
-class DeleteComments(bloghandler.BlogHandler):
+class DeleteComments(BlogHandler):
 
     def get(self, post_id):
 
-        ck = support.db.Key.from_path('Comment', int(post_id), parent=support.blog_key())
-        comment = support.db.get(ck)
+        ck = db.Key.from_path('Comment', int(post_id), parent=blog_key())
+        comment = db.get(ck)
         
         if not comment:
             self.error(404)
@@ -18,8 +20,8 @@ class DeleteComments(bloghandler.BlogHandler):
 
         elif self.user and (self.user.name != comment.creator):
             error = "You can only delete comments you created"
-            posts = greetings = models.Post.all().order('-created')
-            comments = models.Comment.all().order('-created')
+            posts = greetings = Post.all().order('-created')
+            comments = Comment.all().order('-created')
             self.render('front.html', posts=posts,
                         comments=comments, error=error)
         
@@ -28,9 +30,10 @@ class DeleteComments(bloghandler.BlogHandler):
 
 
     def post(self, post_id):
-        ck = support.db.Key.from_path('Comment', int(post_id), parent=support.blog_key())
-        comment = support.db.get(ck)
+        ck = db.Key.from_path('Comment', int(post_id), parent=support.blog_key())
+        comment = db.get(ck)
 
         if self.user:
-            support.db.delete(ck)
+            db.delete(ck)
             self.render("deletedComment.html")
+            return
