@@ -1,5 +1,6 @@
 from google.appengine.ext import db
-import support
+from support import Support
+#render_str
 
 class Comment(db.Model):
     content = db.TextProperty(required=True)
@@ -11,4 +12,4 @@ class Comment(db.Model):
     
     def render(self):
         self._render_text = self.content.replace('\n', '<br>')
-        return support.render_str("comment.html", p=self)
+        return render_str("comment.html", p=self)
