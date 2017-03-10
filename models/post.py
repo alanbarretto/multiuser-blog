@@ -1,4 +1,5 @@
 from google.appengine.ext import db
+import support
 
 class Post(db.Model):
     user = db.StringProperty(required=True)
@@ -11,4 +12,4 @@ class Post(db.Model):
     def render(self):
         likesCount = len(self.likes_list)
         self._render_text = self.content.replace('\n', '<br>')
-        return render_str("post.html", p = self, count=likesCount)
+        return support.render_str("post.html", p = self, count=likesCount)
