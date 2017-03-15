@@ -1,6 +1,5 @@
 from google.appengine.ext import db
-from support import Support
-#render_str
+from support import render_str
 
 class Comment(db.Model):
     content = db.TextProperty(required=True)

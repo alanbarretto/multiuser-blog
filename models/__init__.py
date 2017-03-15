@@ -1,3 +1,3 @@
-from post import Post 
-from user import User 
-from comment import Comment 
+from models.post import Post 
+from models.user import User 
+from models.comment import Comment 

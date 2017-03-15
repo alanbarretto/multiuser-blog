@@ -1,7 +1,7 @@
 from google.appengine.ext import db
-from support import Support
-#render_str
-from models import User
+from support import render_str
+
+from models.user import User
 
 class Post(db.Model):
     user_obj = db.ReferenceProperty(User)
