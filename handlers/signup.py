@@ -1,7 +1,5 @@
 from bloghandler import BlogHandler
-from support import Support
-#valid_username, valid_password, valid_email
-
+from support import *
 
 class Signup(BlogHandler):
     def get(self):

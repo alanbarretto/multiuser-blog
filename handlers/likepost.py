@@ -1,5 +1,5 @@
 from bloghandler import BlogHandler
-from support import Support
+from support import *
 #blog_key
 from google.appengine.ext import db
 

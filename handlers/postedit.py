@@ -1,7 +1,7 @@
 from bloghandler import BlogHandler
 from models import Post, Comment
-from support import Support
-#blog_key
+from support import *
+
 from google.appengine.ext import db
 
 class PostEdit(BlogHandler):

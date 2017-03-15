@@ -1,7 +1,7 @@
 from bloghandler import BlogHandler
 from models import Post, Comment
-from support import Support
-#blog_key
+from support import *
+
 
 class EditComments(BlogHandler):
     def get(self, post_id):

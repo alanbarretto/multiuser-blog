@@ -1,6 +1,5 @@
 import webapp2
-from support import Support
-#render_str, make_secure_val, check_secure_val, set_secure_cookie
+from support import render_str, make_secure_val, check_secure_val
                     
 from models import User 
 
