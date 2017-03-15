@@ -7,6 +7,8 @@
 #                     deletecomments, deletepost, editcomments, postedit, \
 #                     postpage
 
+import webapp2
+
 from handlers import BlogHandler, BlogFront, FrontPage, Login, Logout, \
                      NewPost, Register, Signup, Welcome, LikePost, PostComments, \
                      DeleteComments, DeletePost, EditComments, PostEdit, \
