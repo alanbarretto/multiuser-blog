@@ -15,57 +15,56 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
 
 secret = 'warriors'
 
-class Support():
 
-    def render_str(template, **params):
-        t = jinja_env.get_template(template)
-        return t.render(params)
+def render_str(template, **params):
+    t = jinja_env.get_template(template)
+    return t.render(params)
 
-    def make_secure_val(val):
-        return '%s|%s' % (val, hmac.new(secret, val).hexdigest())
+def make_secure_val(val):
+    return '%s|%s' % (val, hmac.new(secret, val).hexdigest())
 
-    def check_secure_val(secure_val):
-        val = secure_val.split('|')[0]
-        if secure_val == make_secure_val(val):
-            return val
+def check_secure_val(secure_val):
+    val = secure_val.split('|')[0]
+    if secure_val == make_secure_val(val):
+        return val
 
-    def render_post(response, post):
-        response.out.write('<b>' + post.subject + '</b><br>')
-        response.out.write(post.content)
+def render_post(response, post):
+    response.out.write('<b>' + post.subject + '</b><br>')
+    response.out.write(post.content)
 
-    ##### user stuff
-    def make_salt(length = 5):
-        return ''.join(random.choice(letters) for x in xrange(length))
+##### user stuff
+def make_salt(length = 5):
+    return ''.join(random.choice(letters) for x in xrange(length))
 
-    def make_pw_hash(name, pw, salt = None):
-        if not salt:
-            salt = make_salt()
-        h = hashlib.sha256(name + pw + salt).hexdigest()
-        return '%s,%s' % (salt, h)
+def make_pw_hash(name, pw, salt = None):
+    if not salt:
+        salt = make_salt()
+    h = hashlib.sha256(name + pw + salt).hexdigest()
+    return '%s,%s' % (salt, h)
 
-    #how to verify passwords
-    def valid_pw(name, password, h):
-        salt = h.split(',')[0]
-        return h == make_pw_hash(name, password, salt)
+#how to verify passwords
+def valid_pw(name, password, h):
+    salt = h.split(',')[0]
+    return h == make_pw_hash(name, password, salt)
 
-    #This creates the ancestor element in the database to store all of our users
-    def users_key(group = 'default'):
-        return db.Key.from_path('users', group)
+#This creates the ancestor element in the database to store all of our users
+def users_key(group = 'default'):
+    return db.Key.from_path('users', group)
 
-    ##### blog stuff
+##### blog stuff
 
-    def blog_key(name = 'default'):
-        return db.Key.from_path('blogs', name)
+def blog_key(name = 'default'):
+    return db.Key.from_path('blogs', name)
 
 
-    USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
-    def valid_username(username):
-        return username and USER_RE.match(username)
+USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
+def valid_username(username):
+    return username and USER_RE.match(username)
 
-    PASS_RE = re.compile(r"^.{3,20}$")
-    def valid_password(password):
-        return password and PASS_RE.match(password)
+PASS_RE = re.compile(r"^.{3,20}$")
+def valid_password(password):
+    return password and PASS_RE.match(password)
 
-    EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
-    def valid_email(email):
-        return not email or EMAIL_RE.match(email)
+EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
+def valid_email(email):
+    return not email or EMAIL_RE.match(email)
