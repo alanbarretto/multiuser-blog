@@ -6,16 +6,16 @@ from google.appengine.ext import db
 
 class DeletePost(BlogHandler):
     def get(self, post_id):
-        k = db.Key.from_path('Post', int(post_id), parent=blog_key())
-        p = db.get(k)
+        
+        p = Post.get_by_id(int(post_id))
 
         if not p:
             self.error(404)
             return
-        if self.user and (self.user.name == p.creator):
+        if self.user and (self.user.name == p.user):
             self.render("deletePost.html", subject= p.subject)
 
-        elif self.user and (self.user.name != p.creator):
+        elif self.user and (self.user.name != p.user):
             error = "You can only delete posts you created!"
             posts = greetings = Post.all().order('-created')
             comments = Comment.all().order('-created')
@@ -24,10 +24,11 @@ class DeletePost(BlogHandler):
             self.redirect('/login')
 
     def post(self, post_id):
-        k = db.Key.from_path('Post', int(post_id), parent=blog_key())
-        p = db.get(k)
+        #k = db.Key.from_path('Post', int(post_id), parent=blog_key())
+        
+        p = Post.get_by_id(int(post_id))
 
-        if self.user:   
-            db.delete(k)
+        if self.user and (self.user.name == p.user):   
+            db.delete(p)
             self.render("goodPostDelete.html")
             return

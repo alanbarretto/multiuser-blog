@@ -1,6 +1,6 @@
 from bloghandler import BlogHandler
 from models import Post, Comment
-from support import *
+from support import blog_key
 
 from google.appengine.ext import db
 
@@ -8,8 +8,8 @@ class PostEdit(BlogHandler):
 
     def get(self, post_id):
 
-        k = db.Key.from_path("Post", int(post_id), parent=blog_key())
-        p = db.get(k)
+        #k = db.Key.from_path("Post", int(post_id), parent=blog_key())
+        p = Post.get_by_id(int(post_id))
 
         if not p:
             self.redirect('/')
@@ -32,8 +32,8 @@ class PostEdit(BlogHandler):
             self.redirect('/')
             return
 
-        k = db.Key.from_path("Post", int(post_id), parent=blog_key())
-        p = db.get(k)
+        #k = db.Key.from_path("Post", int(post_id), parent=blog_key())
+        p = Post.get_by_id(int(post_id))
 
         subject = self.request.get('subject')
         content = self.request.get('content')
@@ -43,7 +43,7 @@ class PostEdit(BlogHandler):
             self.redirect('/')
             return
 
-        if self.user and (self.user.name == p.creator):
+        if self.user and (self.user.name == p.user):
             if subject and content:
                 p.subject = subject
                 p.content = content

@@ -1,12 +1,13 @@
 from bloghandler import BlogHandler
 from models import Post, Comment
-from support import *
+from support import blog_key
+from google.appengine.ext import db
 
 
 class EditComments(BlogHandler):
     def get(self, post_id):
         ck = db.Key.from_path('Comment', int(post_id), parent=blog_key())
-        comment =  db.get(ck)
+        comment =  db.get(ck) 
         
         if not comment:
             self.error(404)
@@ -27,7 +28,7 @@ class EditComments(BlogHandler):
     def post(self, post_id):
         
         ck = db.Key.from_path('Comment', int(post_id), parent=blog_key())
-        comment = db.get(ck)
+        comment = db.get(ck)  
         
         if self.user and (self.user.name == comment.creator):
             content = self.request.get('content')

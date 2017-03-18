@@ -30,10 +30,10 @@ class DeleteComments(BlogHandler):
 
 
     def post(self, post_id):
-        ck = db.Key.from_path('Comment', int(post_id), parent=support.blog_key())
+        ck = db.Key.from_path('Comment', int(post_id), parent=blog_key())
         comment = db.get(ck)
 
-        if self.user:
+        if self.user and (self.user.name == comment.creator):
             db.delete(ck)
             self.render("deletedComment.html")
             return

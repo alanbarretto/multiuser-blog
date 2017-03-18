@@ -19,6 +19,7 @@ class NewPost(BlogHandler):
         content = self.request.get('content')
         user_name = self.user.name
         
+        
         # post = Post(user=self.user, subject = subject, content = content)
         # post.put()
 
