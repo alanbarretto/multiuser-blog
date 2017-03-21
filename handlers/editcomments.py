@@ -6,17 +6,17 @@ from google.appengine.ext import db
 
 class EditComments(BlogHandler):
     def get(self, post_id):
-        ck = db.Key.from_path('Comment', int(post_id), parent=blog_key())
-        comment =  db.get(ck) 
+        k = db.Key.from_path('Comment', int(post_id), parent=blog_key())
+        c =  db.get(k) 
         
-        if not comment:
+        if not c:
             self.error(404)
             return
 
-        if self.user and (self.user.name == comment.creator):
-            self.render("usercomment.html", content=comment.content)
+        if self.user and (self.user.key() == c.comment_user):
+            self.render("usercomment.html", content=c.content)
         
-        elif self.user and (self.user.name != comment.creator):
+        elif self.user and (self.user.key() != c.comment_user):
             posts = greetings = Post.all().order('-created')
             comments = Comment.all().order('-created')
             error = "You can only edit comments you created."
@@ -27,19 +27,19 @@ class EditComments(BlogHandler):
 
     def post(self, post_id):
         
-        ck = db.Key.from_path('Comment', int(post_id), parent=blog_key())
-        comment = db.get(ck)  
+        k = db.Key.from_path('Comment', int(post_id), parent=blog_key())
+        c = db.get(k)  
         
-        if self.user and (self.user.name == comment.creator):
+        if self.user and (self.user.key() == c.comment_user):
             content = self.request.get('content')
             user = self.user.name
 
             if content: 
-                comment.content = content
-                comment.put()
+                c.content = content
+                c.put()
                 self.render("goodCommentEdit.html")
             else:
                 error = "content, please!"
-                self.render("usercomment.html", content=comment.content, error=error)
+                self.render("usercomment.html", content=c.content, error=error)
         else:
             self.redirect('/blog')

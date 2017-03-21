@@ -15,7 +15,7 @@ class PostEdit(BlogHandler):
             self.redirect('/')
             return
 
-        if self.user and (self.user.name == p.user):
+        if self.user and (self.user.key() == p.user_obj):
             self.render("newpost.html", subject=p.subject,
                         content=p.content)
         elif not self.user:
@@ -43,7 +43,7 @@ class PostEdit(BlogHandler):
             self.redirect('/')
             return
 
-        if self.user and (self.user.name == p.user):
+        if self.user and (self.user.key() == p.user_obj):
             if subject and content:
                 p.subject = subject
                 p.content = content

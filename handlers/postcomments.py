@@ -39,5 +39,5 @@ class PostComments(BlogHandler):
             
             else:
                 error = "subject and content, please!"
-                elf.render("usercomment.html", error=error)
+                self.render("usercomment.html", error=error)
             

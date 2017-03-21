@@ -12,10 +12,10 @@ class DeletePost(BlogHandler):
         if not p:
             self.error(404)
             return
-        if self.user and (self.user.name == p.user):
+        if self.user and (self.user.key() == p.user_obj):
             self.render("deletePost.html", subject= p.subject)
 
-        elif self.user and (self.user.name != p.user):
+        elif self.user and (self.user.key() != p.user_obj):
             error = "You can only delete posts you created!"
             posts = greetings = Post.all().order('-created')
             comments = Comment.all().order('-created')
@@ -28,7 +28,7 @@ class DeletePost(BlogHandler):
         
         p = Post.get_by_id(int(post_id))
 
-        if self.user and (self.user.name == p.user):   
+        if self.user and (self.user.key() == p.user_obj):   
             db.delete(p)
             self.render("goodPostDelete.html")
             return

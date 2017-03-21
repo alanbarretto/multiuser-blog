@@ -9,7 +9,7 @@ class LikePost(BlogHandler):
         #k = db.Key.from_path('Post', int(post_id), parent=blog_key())
         p = Post.get_by_id(int(post_id))
 
-        if  self.user and (self.user.name != p.user):
+        if  self.user and (self.user.key() != p.user_obj):
             if not self.user.key() in p.likes_list:
                 p.likes_list.append(self.user.key())
                 p.put()
@@ -17,7 +17,7 @@ class LikePost(BlogHandler):
             else: 
                 self.redirect('/blog')
             
-        elif self.user and (self.user.name == p.user):
+        elif self.user and (self.user.key() == p.user_obj):
             error = "You can't Like your own Posts!"
             posts = db.GqlQuery("select * from Post order by created desc limit 10")
             comments = db.GqlQuery("select * from Comment order by created desc")
