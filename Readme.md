@@ -1,10 +1,12 @@
-#Alan's Multiuser Blog
+# Alan's Multiuser Blog
 
-Alan's Multiuser Blog is a project from Udacity's Full-Stack Developer's course.  It is an app where users can log in or create a new account then compose, edit, like, comment on, and/or delete blog posts. The project is built using the Google App Engine as its framework.  
+Alan's Multiuser Blog is a project from Udacity's Full-Stack Developer's course.  It is an app where users can create a new account or log in with an existing account, then compose blog posts with options to edit, like, comment on, and/or delete them. The project is built using the Google App Engine as its framework.  
 
-##Getting Started
+---
 
-You don't have to download the code in order to run the app.  You can simply click on this link:  insert link here to sample the app.  If you are a new user, simply click on the "Signin" link to create an account.
+## Getting Started
+
+Downloading the code is not required in order to run the app.  You can simply click on this link:  https://udacity-blog-project-162902.appspot.com.  If you are a new user, simply click on the "Signin" or "Signup" link to create an account. Returning users can click on the "Log in" link and enter your user name and password.
 
 If you prefer to run it on a local server, follow these steps:
 
@@ -14,7 +16,11 @@ If you prefer to run it on a local server, follow these steps:
 
 3. Open the terminal and go to the directory that contains the app's code. Then, type "dev_appserver.py ." to start the local development server.  Open your browser and type in http://localhost8080 to view the app. 
 
-##How to Use
+4. Follow the steps in the section below called "How to Use"
+
+---
+
+## How to Use
 
 If you are a new user, click on the "Sign In" link.  Enter a unique user name and password.  (Email is optional) Once you click "submit", you can click on a link to view all blogs or create a new one. 
 
