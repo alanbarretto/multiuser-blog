@@ -3,14 +3,17 @@
 <html>
   <head>
     <title>Welcome Page</title>
+    <link type="text/css" rel="stylesheet" href="../../static/main.css"/>
   </head>
 
   <body>
-    <h2>Welcome, {{username}}!</h2>
-    <br>
-    <a class="login-link" href="/blog/newpost">Click Here to Create a New Blog</a>
-    <br>
-    <br>
-    <a class="login-link" href="/blog">Click Here to See All Blog Posts</a>
+    <div class="successfulConfirm">
+      <h2>Welcome, {{username}}!</h2>
+      <br>
+      <p><a class="login-link" href="/blog/newpost">Click Here to Create a New Blog</a></p>
+      <br>
+      <br>
+      <p><a class="login-link" href="/blog">Click Here to See All Blog Posts</a></p>
+  </div>
   </body>
 </html>

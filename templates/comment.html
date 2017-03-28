@@ -2,7 +2,7 @@
    
  <div>
      
-    <p> comment by   <strong>{{p.creator}}</strong> | {{p.created.strftime("%b %d, %Y")}} </p>
+    <p> comment by   <strong>{{p.comment_user.name}}</strong> | {{p.created.strftime("%b %d, %Y")}} </p>
     
         <a href="/blog/editcomment/{{p.key().id()}}" >Edit</a> |
         <a href="/blog/deletecomment/{{p.key().id()}}">Delete</a>

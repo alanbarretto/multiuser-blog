@@ -5,56 +5,41 @@
  <div class="newAccountBox"> 
   <h2>Create a New Account Here</h2>
   <form method="post">
-    <table>
-      <tr>
-        <td class="label">
+        <p class="label">
           Username
-        </td>
-        <td>
-          <input type="text" name="username" value="{{username}}">
-        </td>
-        <td class="error">
+        <input type="text" name="username" value="{{username}}">
+        </p>
+
+        <p class="error">
           {{error_username}}
-        </td>
-      </tr>
+        </p>
 
-      <tr>
-        <td class="label">
+        <p class="label">
           Password
-        </td>
-        <td>
           <input type="password" name="password" value="">
-        </td>
-        <td class="error">
+        </p>
+
+        <p class="error">
           {{error_password}}
-        </td>
-      </tr>
+        </p>
 
-      <tr>
-        <td class="label">
+        <p class="label">
           Verify Password
-        </td>
-        <td>
           <input type="password" name="verify" value="">
-        </td>
-        <td class="error">
+        </p>
+
+        <p class="error">
           {{error_verify}}
-        </td>
-      </tr>
+        </p>
 
-      <tr>
-        <td class="label">
+        <p class="label">
           Email (optional)
-        </td>
-        <td>
           <input type="text" name="email" value="{{email}}">
-        </td>
-        <td class="error">
+        </p>
+        
+        <p class="error">
           {{error_email}}
-        </td>
-      </tr>
-    </table>
-
+        </p>
     <input type="submit" id="pinksubmit">
   </form>
 </div>
