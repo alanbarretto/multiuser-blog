@@ -15,10 +15,10 @@ class DeleteComments(BlogHandler):
             self.error(404)
             return
 
-        if self.user and (self.user.key() == c.comment_user):
+        if self.user and (self.user.key() == c.comment_user.key()):
             self.render("deletepage.html", comment=c.content)
 
-        elif self.user and (self.user.key() != c.comment_user):
+        elif self.user and (self.user.key() != c.comment_user.key()):
             error = "You can only delete comments you created"
             posts = greetings = Post.all().order('-created')
             comments = Comment.all().order('-created')
@@ -33,7 +33,11 @@ class DeleteComments(BlogHandler):
         k = db.Key.from_path('Comment', int(post_id), parent=blog_key())
         c = db.get(k)
 
-        if self.user and (self.user.key() == c.comment_user):
+        if not c:
+            self.error(404)
+            return
+
+        if self.user and (self.user.key() == c.comment_user.key()):
             db.delete(k)
             self.render("deletedComment.html")
             return

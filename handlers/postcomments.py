@@ -1,5 +1,5 @@
 from bloghandler import BlogHandler
-from models import Comment
+
 from support import blog_key
 from models import Post, Comment
 
@@ -12,6 +12,10 @@ class PostComments(BlogHandler):
         #k = db.Key.from_path('Post', int(post_id), parent=blog_key())
         p = Post.get_by_id(int(post_id))
 
+        if not p:
+            self.redirect(404)
+            return
+        
         if self.user:
             self.render("usercomment.html")
             
@@ -33,7 +37,7 @@ class PostComments(BlogHandler):
             self.redirect('/')
         else: 
             if content:
-                c = Comment(parent=blog_key(), post_reference=p.subject, content=content, creator=user)
+                c = Comment(parent=blog_key(), post_reference=p.subject, content=content, comment_user=self.user)
                 c.put()
                 self.render("successfulcomment.html")
             

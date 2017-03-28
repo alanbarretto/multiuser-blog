@@ -13,10 +13,10 @@ class EditComments(BlogHandler):
             self.error(404)
             return
 
-        if self.user and (self.user.key() == c.comment_user):
+        if self.user and (self.user.key() == c.comment_user.key()):
             self.render("usercomment.html", content=c.content)
         
-        elif self.user and (self.user.key() != c.comment_user):
+        elif self.user and (self.user.key() != c.comment_user.key()):
             posts = greetings = Post.all().order('-created')
             comments = Comment.all().order('-created')
             error = "You can only edit comments you created."
@@ -26,11 +26,18 @@ class EditComments(BlogHandler):
             self.redirect('/login')
 
     def post(self, post_id):
+
+        if not self.user:
+            self.redirect('/')
         
         k = db.Key.from_path('Comment', int(post_id), parent=blog_key())
         c = db.get(k)  
+
+        if not c:
+            self.error(404)
+            return
         
-        if self.user and (self.user.key() == c.comment_user):
+        if self.user and (self.user.key() == c.comment_user.key()):
             content = self.request.get('content')
             user = self.user.name
 

@@ -24,7 +24,7 @@ class NewPost(BlogHandler):
         # post.put()
 
         if subject and content:
-            p = Post(user=user_name, subject = subject, content = content)
+            p = Post(user_obj=self.user, subject = subject, content = content)
             p.put()
             self.redirect('/blog/%s' % str(p.key().id()))
             

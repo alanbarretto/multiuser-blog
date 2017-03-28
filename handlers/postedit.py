@@ -1,5 +1,5 @@
 from bloghandler import BlogHandler
-from models import Post, Comment
+from models import Post, Comment, User
 from support import blog_key
 
 from google.appengine.ext import db
@@ -15,7 +15,7 @@ class PostEdit(BlogHandler):
             self.redirect('/')
             return
 
-        if self.user and (self.user.key() == p.user_obj):
+        if self.user and (self.user.key() == p.user_obj.key()):
             self.render("newpost.html", subject=p.subject,
                         content=p.content)
         elif not self.user:
@@ -43,7 +43,7 @@ class PostEdit(BlogHandler):
             self.redirect('/')
             return
 
-        if self.user and (self.user.key() == p.user_obj):
+        if self.user and (self.user.key() == p.user_obj.key()):
             if subject and content:
                 p.subject = subject
                 p.content = content
@@ -54,4 +54,4 @@ class PostEdit(BlogHandler):
                 self.render("newpost.html", subject=subject,
                         content=content, error=error)
         else:
-            self.redirect('/')
+            self.redirect('/blog')
