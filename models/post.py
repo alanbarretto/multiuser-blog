@@ -5,7 +5,6 @@ from models.user import User
 
 class Post(db.Model):
     user_obj = db.ReferenceProperty(User)
-    user = db.StringProperty(required=True)
     subject = db.StringProperty(required = True)
     content = db.TextProperty(required = True)
     created = db.DateTimeProperty(auto_now_add = True)
